@@ -1,0 +1,24 @@
+name: Release
+
+on:
+  release:
+    types: [edited, released]
+
+defaults:
+  run:
+    working-directory: averagebit.docker
+
+jobs:
+  release:
+    name: Release
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout codebase.
+        uses: actions/checkout@v2
+        with:
+          path: averagebit.docker
+
+      - name: Trigger Galaxy import.
+        uses: averagebit/action-galaxy@1.0.0
+        with:
+          galaxy_token: ${{ secrets.galaxy_token }}

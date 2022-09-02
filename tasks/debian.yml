@@ -1,0 +1,24 @@
+---
+- name: Uninstall old Docker versions
+  ansible.builtin.apt:
+    name: "{{ item }}"
+    state: absent
+  loop: "{{ docker_debian_old_versions }}"
+
+- name: Install dependencies
+  ansible.builtin.apt:
+    name: "{{ item }}"
+    state: "{{ docker_debian_dependencies_state }}"
+  loop: "{{ docker_debian_dependencies }}"
+
+- name: Add apt key
+  ansible.builtin.apt_key:
+    id: "{{ docker_apt_key_id }}"
+    url: "{{ docker_apt_key_url }}"
+    state: "{{ docker_apt_key_state }}"
+
+- name: Add apt repository
+  ansible.builtin.apt_repository:
+    repo: "{{ docker_apt_repo }}"
+    state: "{{ docker_apt_repo_state }}"
+    update_cache: yes

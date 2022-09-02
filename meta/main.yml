@@ -1,0 +1,18 @@
+galaxy_info:
+  role_name: docker
+  namespace: averagebit
+  author: averagebit <averagebit@pm.me>
+  description: Installs and configures Docker.
+  license: Apache-2.0
+  issue_tracker_url: https://github.com/averagebit/ansible-role-docker/issues
+  min_ansible_version: "2.9"
+
+  platforms:
+    - name: Ubuntu
+      versions:
+        - jammy
+
+  galaxy_tags:
+    - docker
+
+dependencies: []

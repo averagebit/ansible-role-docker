@@ -1,0 +1,55 @@
+---
+docker_edition: ce
+docker_packages:
+  - "docker-{{ docker_edition }}"
+  - "docker-{{ docker_edition }}-cli"
+  - "docker-{{ docker_edition }}-rootless-extras"
+  - containerd.io
+docker_packages_state: present
+
+docker_compose_install: false
+docker_compose_packages: ["docker-compose-plugin"]
+docker_compose_packages_state: present
+
+docker_architecture_map:
+  {
+    "aarch": "arm64",
+    "aarch64": "arm64",
+    "amd64": "amd64",
+    "x86_64": "amd64",
+    "armhf": "armhf",
+    "armv7l": "armhf",
+    "s390x": "s390x",
+  }
+
+docker_debian_old_versions:
+  - docker
+  - docker-engine
+  - docker.io
+  - containerd
+  - runc
+docker_debian_dependencies:
+  - ca-certificates
+  - curl
+  - gnupg
+  - lsb-release
+docker_debian_dependencies_state: present
+
+docker_repo_url: https://download.docker.com/linux
+
+docker_apt_architecture: "{{ docker_architecture_map[ansible_architecture] }}"
+docker_apt_channel: stable
+docker_apt_key_id: 9DC858229FC7DD38854AE2D88D81803C0EBFCD88
+docker_apt_key_url: "{{ docker_repo_url }}/{{ ansible_distribution | lower }}/gpg"
+docker_apt_key_state: present
+docker_apt_repo: "deb [arch={{ docker_apt_architecture }}] {{ docker_repo_url }}/{{ ansible_distribution | lower }} {{ ansible_distribution_release }} {{ docker_apt_channel }}"
+docker_apt_repo_state: present
+
+docker_service_manage: true
+docker_service_state_running: started
+docker_service_state_enabled: true
+
+docker_config: {}
+docker_config_mode: 0644
+
+docker_users: []
