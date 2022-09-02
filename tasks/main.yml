@@ -1,0 +1,34 @@
+---
+- import_tasks: debian.yml
+  when: ansible_os_family == "Debian"
+
+- name: Install Docker
+  ansible.builtin.package:
+    name: "{{ item }}"
+    state: "{{ docker_packages_state }}"
+  loop: "{{ docker_packages }}"
+  notify: docker_service_manage
+
+- name: Create Docker configuration file
+  copy:
+    content: "{{ docker_config | to_nice_json }}"
+    dest: /etc/docker/daemon.json
+    mode: "{{ docker_config_mode }}"
+  notify: docker_service_manage
+  when: docker_config.keys() | length > 0
+
+- name: Install Docker Compose
+  ansible.builtin.package:
+    name: "{{ item }}"
+    state: "{{ docker_compose_packages_state }}"
+  loop: "{{ docker_compose_packages }}"
+  notify: docker_service_manage
+  when: docker_compose_install | bool
+
+- name: Add users to the Docker group
+  user:
+    name: "{{ item }}"
+    groups: docker
+    append: true
+  loop: "{{ docker_users }}"
+  when: docker_users | length > 0
