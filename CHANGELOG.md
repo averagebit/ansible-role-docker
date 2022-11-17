@@ -9,8 +9,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
-- Feature to install and configure Docker on RedHat systems.
 - Feature to install Docker Python modules.
+
+## [1.0.1] - 2022-11-17
+
+### Added
+
+- Feature to install and configure Docker on RedHat systems.
 
 ## [1.0.0] - 2022-09-02
 
