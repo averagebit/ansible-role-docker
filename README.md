@@ -72,6 +72,10 @@ roles:
   - Default: `["docker", "docker-engine", "docker.io", "containerd", "runc"]`
   - Description: Old Docker packages which will be removed from the
     system.
+- `docker_redhat_old_versions`
+  - Default: `["docker", "docker-client", "docker-client-latest", "docker-common", "docker-latest", "docker-latest-logrotate", "docker-logrotate", "docker-selinux", "docker-engine-selinux", "docker-engine"]`
+  - Description: Old Docker packages which will be removed from the
+    system.
 - `docker_debian_dependencies`
   - Default: `["ca-certificates", "curl", "gnupg", "lsb-release"]`
   - Description: Docker Debian dependencies.
@@ -108,6 +112,16 @@ roles:
   - Default: `"present"`
   - Description: Whether the `docker_apt_repo` should be `"present"` on
     or `"absent"` from the system.
+- `docker_dnf_repo_url`
+  - Default: `"{{ docker_repo_url }}/{{ (ansible_distribution == 'Fedora') | ternary('fedora','centos') }}/docker-{{ docker_edition }}.repo"`
+  - Description: The Docker apt repository.
+- `docker_dnf_key_url`
+  - Default: `"{{ docker_repo_url }}/centos/gpg"`
+  - Description: The Docker GPG key URL.
+- `docker_dnf_key_state`
+  - Default: `"present"`
+  - Description: Whether the Docker GPG key should be `"present"` on or
+    `"absent"` from the system.
 - `docker_service_manage`
   - Default: `true`
   - Description: Whether to run the handlers responsible for managing

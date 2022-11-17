@@ -22,6 +22,18 @@ docker_architecture_map:
     "s390x": "s390x",
   }
 
+docker_redhat_old_versions:
+  - docker
+  - docker-client
+  - docker-client-latest
+  - docker-common
+  - docker-latest
+  - docker-latest-logrotate
+  - docker-logrotate
+  - docker-selinux
+  - docker-engine-selinux
+  - docker-engine
+
 docker_debian_old_versions:
   - docker
   - docker-engine
@@ -44,6 +56,10 @@ docker_apt_key_url: "{{ docker_repo_url }}/{{ ansible_distribution | lower }}/gp
 docker_apt_key_state: present
 docker_apt_repo: "deb [arch={{ docker_apt_architecture }}] {{ docker_repo_url }}/{{ ansible_distribution | lower }} {{ ansible_distribution_release }} {{ docker_apt_channel }}"
 docker_apt_repo_state: present
+
+docker_dnf_key_url: "{{ docker_repo_url }}/centos/gpg"
+docker_dnf_key_state: present
+docker_dnf_repo_url: "{{ docker_repo_url }}/{{ (ansible_distribution == 'Fedora') | ternary('fedora','centos') }}/docker-{{ docker_edition }}.repo"
 
 docker_service_manage: true
 docker_service_state_running: started

@@ -11,6 +11,9 @@ galaxy_info:
     - name: Ubuntu
       versions:
         - jammy
+    - name: Fedora
+      versions:
+        - "36"
 
   galaxy_tags:
     - docker

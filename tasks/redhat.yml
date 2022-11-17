@@ -1,0 +1,19 @@
+---
+- name: Uninstall old Docker versions
+  ansible.builtin.dnf:
+    name: "{{ item }}"
+    state: absent
+  loop: "{{ docker_redhat_old_versions }}"
+
+- name: Add dnf key
+  ansible.builtin.rpm_key:
+    key: "{{ docker_dnf_key_url }}"
+    state: "{{ docker_dnf_key_state }}"
+
+- name: Add dnf repository
+  ansible.builtin.get_url:
+    url: "{{ docker_dnf_repo_url }}"
+    dest: "/etc/yum.repos.d/"
+    owner: root
+    group: root
+    mode: 0644
