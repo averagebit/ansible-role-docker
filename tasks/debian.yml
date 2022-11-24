@@ -9,6 +9,7 @@
   ansible.builtin.apt:
     name: "{{ item }}"
     state: "{{ docker_debian_dependencies_state }}"
+    update_cache: yes
   loop: "{{ docker_debian_dependencies }}"
 
 - name: Add apt key
