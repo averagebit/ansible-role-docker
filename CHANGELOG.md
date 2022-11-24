@@ -11,7 +11,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Feature to install Docker Python modules.
 
-## [1.0.1] - 2022-11-17
+## [1.1.0] - 2022-11-17
 
 ### Added
 
